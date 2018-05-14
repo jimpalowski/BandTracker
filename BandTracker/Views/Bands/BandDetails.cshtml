@@ -1,0 +1,31 @@
+
+@{
+  Layout = "_Layout";
+}
+
+<div class="page-header">
+  <h1>Band Details for @Model.GetName()</h1>
+</div>
+
+<div class="row addBand">
+    <div class="page-header">
+      <h1>Edit Band Details for @Model.GetName()</h1>
+    </div>
+    <form action="/bands/edited" method="post" class="form-group">
+      <label for="name">Band Name</label>
+      <input type="text" name="name" class="form-control" value="@Model.GetName()"required>
+
+      <label for="genre">Band Genre</label>
+      <input type="text" name="genre" class="form-control" value="@Model.GetGenre()"required>
+
+
+      <input type="hidden" name="bandId" value="@Model.GetId()">
+
+      <button type="submit" name="button" class="btn">Submit Changes</button>
+    </form>
+</div>
+<br>
+  <form action="/bands/removed" method="post">
+    <button type="submit" class="btn btn-danger" name="button">Remove this Band</button>
+    <input type="hidden" name="bandId" value="@Model.GetId()">
+  </form>

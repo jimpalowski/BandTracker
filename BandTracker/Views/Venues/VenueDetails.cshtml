@@ -1,0 +1,32 @@
+@{
+  Layout = "_Layout";
+}
+
+<div class="page-header">
+  <h1>Venue Details for @Model.GetName()</h1>
+</div>
+
+<div class="row addVenue">
+    <div class="page-header">
+      <h1>Edit Venue Details for @Model.GetName()</h1>
+    </div>
+    <form action="/venues/edited" method="post" class="form-group">
+      <label for="name">Venue Name</label>
+      <input type="text" name="name" class="form-control" value="@Model.GetName()"required>
+
+      <label for="address">Venue Address</label>
+      <input type="text" name="address" class="form-control" value="@Model.GetAddress()"required>
+
+      <label for="Capacity">Venue Capacity</label>
+      <input type="number" name="Capacity" class="form-control" value="@Model.GetCapacity()"required>
+
+      <input type="hidden" name="venueId" value="@Model.GetId()">
+
+      <button type="submit" name="button" class="btn">Submit Changes</button>
+    </form>
+</div>
+
+<form action="/venues/removed" method="post">
+  <button type="submit" class="btn btn-danger" name="button">Remove this Venue</button>
+  <input type="hidden" name="venueId" value="@Model.GetId()">
+</form>
