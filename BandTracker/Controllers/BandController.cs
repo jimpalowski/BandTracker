@@ -65,7 +65,7 @@ namespace BandTracker.Controllers
     public ActionResult BandDetailsEdit()
     {
       Band foundBand = Band.Find(int.Parse(Request.Form["bandId"]));
-      foundBand.Update(Request.Form["name"], Request.Form["genre"]);
+      //foundBand.Update(Request.Form["name"], Request.Form["genre"]);
 
       Dictionary<string, object> model = new Dictionary<string,object>{};
       model.Add("bands", Band.GetAll());

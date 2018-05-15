@@ -189,7 +189,7 @@ namespace BandTracker.Models
       conn.Open();
 
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"UPDATE bands SET name = @name, genre = @genre, image = @image WHERE id = @thisId;";
+      cmd.CommandText = @"UPDATE bands SET name = @name, genre = @genre WHERE id = @thisId;";
 
       MySqlParameter idParameter = new MySqlParameter();
       idParameter.ParameterName = "@thisId";
@@ -205,11 +205,6 @@ namespace BandTracker.Models
       genre.ParameterName = "@genre";
       genre.Value = newGenre;
       cmd.Parameters.Add(genre);
-
-      MySqlParameter image = new MySqlParameter();
-      image.ParameterName = "@image";
-      image.Value = newImage;
-      cmd.Parameters.Add(image);
 
       _name = newName;
       _genre = newGenre;
