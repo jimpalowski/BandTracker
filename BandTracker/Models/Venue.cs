@@ -323,46 +323,46 @@ namespace BandTracker.Models
         }
       }
 
-      public List<Band> GetUniqueBands()
-      {
-        List<Band> allBands = Band.GetAll();
-        List<Band> venueBands = this.GetBands();
-
-        return allBands.Except(venueBands).ToList();
-      }
-
-      public static List<Venue> Search(string venueName)
-      {
-        List<Venue> allVenues = new List<Venue> {};
-        MySqlConnection conn = DB.Connection();
-        conn.Open();
-
-        var cmd = conn.CreateCommand() as MySqlCommand;
-        cmd.CommandText = @"SELECT * FROM venues WHERE name LIKE CONCAT('%',@venueName,'%');";
-
-        MySqlParameter venueNameParameter = new MySqlParameter();
-        venueNameParameter.ParameterName = "@venueName";
-        venueNameParameter.Value = venueName;
-        cmd.Parameters.Add(venueNameParameter);
-
-        var rdr = cmd.ExecuteReader() as MySqlDataReader;
-        while(rdr.Read())
-        {
-          int id = rdr.GetInt32(0);
-          string name = rdr.GetString(1);
-          string address = rdr.GetString(2);
-          int capacity = rdr.GetInt32(3);
-
-          Venue newVenue = new Venue(name, address, capacity, id);
-          allVenues.Add(newVenue);
-        }
-        conn.Close();
-        if(conn != null)
-        {
-          conn.Dispose();
-        }
-        return allVenues;
-      }
+      // public List<Band> GetUniqueBands()
+      // {
+      //   List<Band> allBands = Band.GetAll();
+      //   List<Band> venueBands = this.GetBands();
+      //
+      //   return allBands.Except(venueBands).ToList();
+      // }
+      //
+      // public static List<Venue> Search(string venueName)
+      // {
+      //   List<Venue> allVenues = new List<Venue> {};
+      //   MySqlConnection conn = DB.Connection();
+      //   conn.Open();
+      //
+      //   var cmd = conn.CreateCommand() as MySqlCommand;
+      //   cmd.CommandText = @"SELECT * FROM venues WHERE name LIKE CONCAT('%',@venueName,'%');";
+      //
+      //   MySqlParameter venueNameParameter = new MySqlParameter();
+      //   venueNameParameter.ParameterName = "@venueName";
+      //   venueNameParameter.Value = venueName;
+      //   cmd.Parameters.Add(venueNameParameter);
+      //
+      //   var rdr = cmd.ExecuteReader() as MySqlDataReader;
+      //   while(rdr.Read())
+      //   {
+      //     int id = rdr.GetInt32(0);
+      //     string name = rdr.GetString(1);
+      //     string address = rdr.GetString(2);
+      //     int capacity = rdr.GetInt32(3);
+      //
+      //     Venue newVenue = new Venue(name, address, capacity, id);
+      //     allVenues.Add(newVenue);
+      //   }
+      //   conn.Close();
+      //   if(conn != null)
+      //   {
+      //     conn.Dispose();
+      //   }
+      //   return allVenues;
+      // }
 
 
     }

@@ -145,14 +145,12 @@ namespace BandTracker.Models
       int myId = 0;
       string name = "";
       string genre = "";
-      string image = "";
 
       while(rdr.Read())
       {
         myId = rdr.GetInt32(0);
         name = rdr.GetString(1);
         genre = rdr.GetString(2);
-        image = rdr.GetString(3);
       }
       Band newBand = new Band(name, genre, myId);
       conn.Close();
@@ -313,45 +311,45 @@ namespace BandTracker.Models
       }
     }
 
-    public static List<Band> Search(string bandName)
-    {
-      List<Band> allBandsFound = new List<Band> {};
-      MySqlConnection conn = DB.Connection();
-      conn.Open();
-
-      var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"SELECT * FROM bands WHERE name LIKE CONCAT('%',@bandName,'%');";
-
-      MySqlParameter bandNameParameter = new MySqlParameter();
-      bandNameParameter.ParameterName = "@bandName";
-      bandNameParameter.Value = bandName;
-      cmd.Parameters.Add(bandNameParameter);
-
-      var rdr = cmd.ExecuteReader() as MySqlDataReader;
-      while(rdr.Read())
-      {
-        int id = rdr.GetInt32(0);
-        string name = rdr.GetString(1);
-        string genre = rdr.GetString(2);
-
-        Band newBand = new Band(name, genre, id);
-        allBandsFound.Add(newBand);
-      }
-      conn.Close();
-      if(conn != null)
-      {
-        conn.Dispose();
-      }
-      return allBandsFound;
-    }
-
-    public List<Venue> GetUniqueVenues()
-    {
-      List<Venue> allVenues = Venue.GetAll();
-      List<Venue> bandVenues = this.GetVenues();
-
-      return allVenues.Except(bandVenues).ToList();
-    }
+    // public static List<Band> Search(string bandName)
+    // {
+    //   List<Band> allBandsFound = new List<Band> {};
+    //   MySqlConnection conn = DB.Connection();
+    //   conn.Open();
+    //
+    //   var cmd = conn.CreateCommand() as MySqlCommand;
+    //   cmd.CommandText = @"SELECT * FROM bands WHERE name LIKE CONCAT('%',@bandName,'%');";
+    //
+    //   MySqlParameter bandNameParameter = new MySqlParameter();
+    //   bandNameParameter.ParameterName = "@bandName";
+    //   bandNameParameter.Value = bandName;
+    //   cmd.Parameters.Add(bandNameParameter);
+    //
+    //   var rdr = cmd.ExecuteReader() as MySqlDataReader;
+    //   while(rdr.Read())
+    //   {
+    //     int id = rdr.GetInt32(0);
+    //     string name = rdr.GetString(1);
+    //     string genre = rdr.GetString(2);
+    //
+    //     Band newBand = new Band(name, genre, id);
+    //     allBandsFound.Add(newBand);
+    //   }
+    //   conn.Close();
+    //   if(conn != null)
+    //   {
+    //     conn.Dispose();
+    //   }
+    //   return allBandsFound;
+    // }
+    //
+    // public List<Venue> GetUniqueVenues()
+    // {
+    //   List<Venue> allVenues = Venue.GetAll();
+    //   List<Venue> bandVenues = this.GetVenues();
+    //
+    //   return allVenues.Except(bandVenues).ToList();
+    // }
 
   }
 
